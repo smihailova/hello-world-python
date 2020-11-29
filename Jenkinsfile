@@ -12,6 +12,7 @@ pipeline {
     }
     stage('Test') {
       steps {
+        sh ''
       }
       post {
         always {
