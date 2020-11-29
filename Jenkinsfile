@@ -26,9 +26,9 @@ pipeline {
               verbose: true,
               transfers: [
                 sshTransfer(
-                  sourceFiles: "*",
+                  sourceFiles: "./*",
                   removePrefix: "",
-                  remoteDirectory: "//opt//docker//python",
+                  remoteDirectory: "//opt//docker",
                   execCommand:""
                 )
               ]
