@@ -13,7 +13,17 @@ pipeline {
         withEnv(["HOME=${env.WORKSPACE}"]) {
           sh 'python test_app.py'
         }
-      }   
+      }
+    }
+    stage('Deploy') {
+      steps {
+        withEnv(["HOME=${env.WORKSPACE}"]) {
+          sh '''
+            ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
+            ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150 ;
+          '''
+        }
+      }
     }
   }
 }
