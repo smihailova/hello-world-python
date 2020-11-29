@@ -28,10 +28,7 @@ pipeline {
                 sourceFiles: "*",
                 removePrefix: "",
                 remoteDirectory: "//opt//docker//python",
-                execCommand: '''
-                  // ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
-                  // ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150;
-                '''
+                execCommand:''
               )
             ]
           ]
