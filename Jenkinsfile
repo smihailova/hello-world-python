@@ -10,7 +10,9 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'python test_app.py'
+        withEnv(["HOME=${env.WORKSPACE}"]) {
+          sh 'python test_app.py'
+        }
       }   
     }
   }
