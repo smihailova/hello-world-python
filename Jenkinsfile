@@ -17,12 +17,10 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]) {
-          sh '''
-            ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
-            ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150 ;
-          '''
-        }
+        sh '''
+          ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
+          ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150 ;
+        '''
       }
     }
   }
