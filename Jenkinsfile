@@ -11,8 +11,8 @@ pipeline {
     }
     stage('Test') {
       steps {
+        sh 'coverage --version'
         sh 'coverage run -m pytest && coverage html'
-        sh 'ls -l'
       }
       post {
         always {
