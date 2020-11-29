@@ -15,10 +15,10 @@ pipeline {
       }
       post {
         always {
-          allowMissing: false,
-          alwaysLinkToLastBuild: false,
-          keepAll: true,
           publishHTML target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: true,
             reportDir: 'htmlcov',
             reportFiles: 'index.html',
             reportName: 'Coverage Report - Unit Test'
