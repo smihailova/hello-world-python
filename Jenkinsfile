@@ -16,11 +16,11 @@ pipeline {
       post {
         always {
           junit keepLongStdio: true,
-          publishHTML target: [
+          publishHTML target: {
             reportDir: 'htmlcov',
             reportFiles: 'index.html',
             reportName: 'Coverage Report - Unit Test'
-          ]
+          }
         }
       }
     }
