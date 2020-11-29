@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'coverage run -m pytest && coverage html'
+        sh 'python coverage run -m pytest && coverage html'
         sh 'ls -l'
       }
       post {
