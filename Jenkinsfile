@@ -5,6 +5,7 @@ pipeline {
       steps {
         withEnv(["HOME=${env.WORKSPACE}"]) {
           sh 'pip install -r requirements.txt --user'
+          sh 'ls -l'
         }
       }
     }
@@ -28,8 +29,8 @@ pipeline {
                 removePrefix: "webapp/target",
                 remoteDirectory: "//opt//docker",
                 execCommand: '''
-                  ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
-                  ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150;
+                  // ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
+                  // ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150;
                 '''
               )
             ]
