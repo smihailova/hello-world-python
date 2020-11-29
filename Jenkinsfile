@@ -21,7 +21,7 @@ pipeline {
         sshPublisher(
           continueOnError: false, failOnError: true,
           publishers: [
-            configName: "${env.SSH_CONFIG_NAME}",
+            configName: "ansible-server",
             verbose: true,
             transfers: [
               sshTransfer(
