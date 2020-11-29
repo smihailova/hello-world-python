@@ -21,16 +21,18 @@ pipeline {
         sshPublisher(
           continueOnError: false, failOnError: true,
           publishers: [
-            configName: "ansible-server",
-            verbose: true,
-            transfers: [
-              sshTransfer(
-                sourceFiles: "*",
-                removePrefix: "",
-                remoteDirectory: "//opt//docker//python",
-                execCommand:''
-              )
-            ]
+            sshPublisherDesc(
+              configName: "ansible-server",
+              verbose: true,
+              transfers: [
+                sshTransfer(
+                  sourceFiles: "*",
+                  removePrefix: "",
+                  remoteDirectory: "//opt//docker//python",
+                  execCommand:""
+                )
+              ]
+            )
           ]
         )
       }
