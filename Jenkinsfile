@@ -6,12 +6,12 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'pip install -r requirements.txt'
+        sh 'python -m pip install -r requirements.txt'
       }
     }
     stage('Test') {
       steps {
-        sh 'coverage run -m pytest && coverage html'
+        sh 'python -m coverage run -m pytest && python -m coverage html'
       }
       post {
         always {
