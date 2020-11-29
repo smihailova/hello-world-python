@@ -19,9 +19,6 @@ pipeline {
     agent none 
     stages {
         stage('Build') { 
-            steps {
-                sh 'whoami'
-            }
             agent {
                 docker {
                     image 'python:3-alpine' 
