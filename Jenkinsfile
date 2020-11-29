@@ -29,7 +29,7 @@ pipeline {
                   sourceFiles: "requirements.txt,app.py,Dockerfile,conf/gunicorn_config.py",
                   removePrefix: "",
                   remoteDirectory: "//opt//docker",
-                  execCommand:""
+                  execCommand: "ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150 ;"
                 )
               ]
             )
