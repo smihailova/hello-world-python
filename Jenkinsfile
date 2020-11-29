@@ -18,6 +18,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
+        sh 'ls -l'
         sshPublisher(
           continueOnError: false, failOnError: true,
           publishers: [
