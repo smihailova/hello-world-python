@@ -7,12 +7,11 @@ pipeline {
     stage('Build') {
       steps {
         sh 'pip install -r requirements.txt'
-        sh 'coverage run -m pytest &&  coverage html'
       }
     }
     stage('Test') {
       steps {
-        sh ''
+        sh 'python -m coverage run -m pytest && python -m coverage html'
       }
       post {
         always {
