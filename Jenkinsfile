@@ -1,19 +1,18 @@
 pipeline {
   agent { docker { image 'python:3-alpine' } }
+  environment {
+    HOME="${env.WORKSPACE}"
+  }
   stages {
     stage('Build') {
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]) {
-          sh 'pip install -r requirements.txt --user'
-          sh 'ls -l'
-        }
+        sh 'pip install -r requirements.txt --user'
+        sh 'ls -l'
       }
     }
     stage('Test') {
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]) {
-          sh 'python test_app.py'
-        }
+        sh 'python test_app.py'
       }
     }
     stage('Deploy') {
@@ -27,7 +26,7 @@ pipeline {
               verbose: true,
               transfers: [
                 sshTransfer(
-                  sourceFiles: "./*",
+                  sourceFiles: "requirements.txt",
                   removePrefix: "",
                   remoteDirectory: "//opt//docker",
                   execCommand:""
