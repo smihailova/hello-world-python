@@ -26,7 +26,7 @@ pipeline {
               verbose: true,
               transfers: [
                 sshTransfer(
-                  sourceFiles: "./**",
+                  sourceFiles: "requirements.txt,app.py,Dockerfile,conf/gunicorn_config.py",
                   removePrefix: "",
                   remoteDirectory: "//opt//docker",
                   execCommand:""
