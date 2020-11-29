@@ -1,5 +1,5 @@
 pipeline {
-  agent { docker { image 'python:3.7.2' } }
+  agent { docker { image 'python:3-alpine' } }
   stages {
     stage('Build') {
       steps {
@@ -16,29 +16,26 @@ pipeline {
       }
     }
     stage('Deploy') {
-      steps {
-        sh '''
-          ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
-          ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150 ;
-        '''
+      script {
+        sshPublisher(
+          continueOnError: false, failOnError: true,
+          publishers: [
+            configName: "${env.SSH_CONFIG_NAME}",
+            verbose: true,
+            transfers: [
+              sshTransfer(
+                sourceFiles: "webapp/target/*",
+                removePrefix: "webapp/target",
+                remoteDirectory: "//opt//docker",
+                execCommand: '''
+                  ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
+                  ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150;
+                '''
+              )
+            ]
+          ]
+        )
       }
     }
   }
 }
-
-// pipeline {
-//     agent none 
-//     stages {
-//         stage('Build') { 
-//             agent {
-//                 docker {
-//                     image 'python:3-alpine' 
-//                 }
-//             }
-//             steps {
-//                 sh 'python -m py_compile sources/add2vals.py sources/calc.py' 
-//                 stash(name: 'compiled-results', includes: 'sources/*.py*') 
-//             }
-//         }
-//     }
-// }
