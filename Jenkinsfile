@@ -13,6 +13,7 @@ pipeline {
       steps {
         sh 'ls -l'
         sh 'python -m coverage run -m pytest && python -m coverage html'
+        sh 'ls -l'
       }
       post {
         always {
