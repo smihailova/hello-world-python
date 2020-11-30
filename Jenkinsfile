@@ -13,7 +13,7 @@ pipeline {
       steps {
         sh 'ls -l'
         // sh 'python -m coverage run -m pytest && python -m coverage html'
-        sh 'python -m pytest --junit-xml=test_results.xml test || true'
+        sh 'python -m pytest --junit-xml=test_results.xml || true'
         sh 'ls -l'
         junit keepLongStdio: true, allowEmptyResults: true, testResults: 'test_results.html'
       }
