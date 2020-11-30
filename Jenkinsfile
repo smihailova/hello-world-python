@@ -12,21 +12,23 @@ pipeline {
     stage('Test') {
       steps {
         sh 'ls -l'
-        sh 'python -m coverage run -m pytest && python -m coverage html'
+        // sh 'python -m coverage run -m pytest && python -m coverage html'
+        sh 'python -m pytest --junit-xml=test_results.xml test || true'
         sh 'ls -l'
+        junit keepLongStdio: true, allowEmptyResults: true, testResults: 'test_results.html'
       }
-      post {
-        always {
-          publishHTML target: [
-            allowMissing: false,
-            alwaysLinkToLastBuild: false,
-            keepAll: true,
-            reportDir: 'htmlcov',
-            reportFiles: 'index.html',
-            reportName: 'Coverage Report - Unit Test'
-          ]
-        }
-      }
+      // post {
+      //   always {
+      //     publishHTML target: [
+      //       allowMissing: false,
+      //       alwaysLinkToLastBuild: false,
+      //       keepAll: true,
+      //       reportDir: 'htmlcov',
+      //       reportFiles: 'index.html',
+      //       reportName: 'Coverage Report - Unit Test'
+      //     ]
+      //   }
+      // }
     }
     stage('Deploy') {
       steps {
