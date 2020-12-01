@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'python tests/test_app.py'
+        sh 'python -m pytest'
         // sh 'python -m coverage run -m pytest && python -m coverage html'
         // sh 'python -m pytest --junit-xml=test_results.xml || true'
         // sh 'ls -l'
