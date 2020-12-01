@@ -36,6 +36,23 @@ pipeline {
           continueOnError: false, failOnError: true,
           publishers: [
             sshPublisherDesc(
+              configName: "docker-host",
+              verbose: true,
+              transfers: [
+                sshTransfer(
+                  sourceFiles: "requirements.txt,src/**,nginx/**,conf/**,*.yml",
+                  removePrefix: "",
+                  remoteDirectory: "//opt//docker",
+                  execCommand: ''
+                )
+              ]
+            )
+          ]
+        )
+        sshPublisher(
+          continueOnError: false, failOnError: true,
+          publishers: [
+            sshPublisherDesc(
               configName: "ansible-server",
               verbose: true,
               transfers: [

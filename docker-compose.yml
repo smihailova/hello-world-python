@@ -4,8 +4,8 @@ services:
     restart: always
     image: nginx
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./src/static:/src/static
+      - /opt/docker/nginx/conf.d:/etc/nginx/conf.d
+      - /opt/docker/src/static:/src/static
     links:
       - web:web
     ports:
@@ -14,7 +14,7 @@ services:
   web:
     image: smihailova/simple-devops-image:latest
     extends:
-      file: docker-compose.base.yml
+      file: /opt/docker/docker-compose.base.yml
       service: web
     expose:
       - "8000"
