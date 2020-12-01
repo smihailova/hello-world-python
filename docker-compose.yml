@@ -12,6 +12,7 @@ services:
       - "80:80"
 
   web:
+    image: smihailova/simple-devops-image:latest
     extends:
       file: docker-compose.base.yml
       service: web
