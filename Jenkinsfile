@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh 'python test_app.py'
+        sh 'python tests/test_app.py'
         // sh 'python -m coverage run -m pytest && python -m coverage html'
         // sh 'python -m pytest --junit-xml=test_results.xml || true'
         // sh 'ls -l'
@@ -40,13 +40,14 @@ pipeline {
               verbose: true,
               transfers: [
                 sshTransfer(
-                  sourceFiles: "requirements.txt,app.py,Dockerfile,conf/gunicorn_config.py",
+                  sourceFiles: "requirements.txt,src/**,nginx/**,conf/**,*.yml",
                   removePrefix: "",
                   remoteDirectory: "//opt//docker",
-                  execCommand: '''
-                    ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
-                    ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150;
-                  '''
+                  execCommand: ""
+                  // execCommand: '''
+                  //   ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-image.yml --limit localhost;
+                  //   ansible-playbook -i /opt/docker/hosts /opt/docker/create-simple-devops-project.yml --limit 34.211.184.150;
+                  // '''
                 )
               ]
             )

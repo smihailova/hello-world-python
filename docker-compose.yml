@@ -1,0 +1,35 @@
+version: "2.2"
+services:
+  server:
+    restart: always
+    image: nginx
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./src/static:/src/static
+    links:
+      - web:web
+    ports:
+      - "80:80"
+
+  web:
+    extends:
+      file: docker-compose.base.yml
+      service: web
+    expose:
+      - "8000"
+    command: gunicorn app:app -b :8000 --name app --log-level=debug --log-file=-
+
+
+
+# ERROR:
+#   for server  Cannot start service server:
+#     OCI runtime create failed:
+#       container_linux.go:349:
+#         starting container process caused "process_linux.go:449:
+#           container init caused \"rootfs_linux.go:58:
+#             mounting "/home/smihailova/Projects/DevOps/hello-world-python/nginx/conf.d"
+#             to rootfs "/var/lib/docker/overlay2/14ce11c92d7e309ab40bbb8505d01d93ff7dbda0d11cd01713705d301a4dbf9e/merged"
+#             at "/var/lib/docker/overlay2/14ce11c92d7e309ab40bbb8505d01d93ff7dbda0d11cd01713705d301a4dbf9e/merged/etc/nginx/conf.d"
+#             caused "not a directory"\"":
+#               unknown:
+#                 Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type

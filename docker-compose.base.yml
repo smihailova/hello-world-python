@@ -1,0 +1,8 @@
+version: "2.2"
+services:
+  web:
+    restart: always
+    build: ./src
+    working_dir: /src
+    volumes:
+      - ./src:/src

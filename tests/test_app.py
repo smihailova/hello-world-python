@@ -1,10 +1,9 @@
-#!/usr/bin/env python
 import unittest
-import app
 
 class TestHello(unittest.TestCase):
 
     def setUp(self):
+        app = flask.Flask(__name__)
         app.app.testing = True
         self.app = app.app.test_client()
 
