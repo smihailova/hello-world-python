@@ -1,11 +1,12 @@
+#!/usr/bin/env python
 import unittest
+from src.app import app
 
 class TestHello(unittest.TestCase):
 
     def setUp(self):
-        app = flask.Flask(__name__)
-        app.app.testing = True
-        self.app = app.app.test_client()
+        app.testing = True
+        self.app = app.test_client()
 
     def test_hello(self):
         rv = self.app.get('/')
